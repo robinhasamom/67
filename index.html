@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebe1 0%, #d4a5ec 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4a4a4a;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #a18cd1;
+        }
+        button {
+            background-image: linear-gradient(120deg, #a18cd1 0%, #fbc2eb 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .hidden {
+            display: none;
+        }
+        .result-box {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4757;
+            word-wrap: break-word;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Screen 1: Name Question -->
+        <div id="screen1">
+            <h2>Hi, this is Robin. What is your name?</h2>
+            <input type="text" id="nameInput" placeholder="Your name...">
+            <br>
+            <button onclick="submitName()">Done</button>
+        </div>
+
+        <!-- Screen 2: Math Question -->
+        <div id="screen2" class="hidden">
+            <h2 id="greetingText"></h2>
+            <h2>What is 6 + 7?</h2>
+            <input type="text" id="mathInput" placeholder="Your answer...">
+            <br>
+            <button onclick="submitMath()">Done</button>
+        </div>
+
+        <!-- Screen 3: Output Message -->
+        <div id="screen3" class="hidden">
+            <div id="resultOutput" class="result-box"></div>
+        </div>
+    </div>
+
+    <script>
+        let userName = "";
+
+        function submitName() {
+            const nameField = document.getElementById('nameInput');
+            userName = nameField.value.trim();
+            
+            if (userName === "") {
+                alert("Please enter a name!");
+                return;
+            }
+
+            // Update greeting and swap screens
+            document.getElementById('greetingText').innerText = `Hi, ${userName}! Nice to meet you!`;
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
+        }
+
+        function submitMath() {
+            const mathField = document.getElementById('mathInput');
+            const answer = mathField.value.trim();
+
+            if (answer === "") {
+                alert("Please enter an answer!");
+                return;
+            }
+
+            const resultOutput = document.getElementById('resultOutput');
+            
+            // Logic for the response pattern
+            if (answer === "13") {
+                resultOutput.innerText = "67676767676767676767";
+            } else {
+                resultOutput.innerText = "67";
+            }
+
+            // Swap to the final screen
+            document.getElementById('screen2').classList.add('hidden');
+            document.getElementById('screen3').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
